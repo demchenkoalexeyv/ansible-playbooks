@@ -1,0 +1,17 @@
+---
+- name: Deploy app
+  hosts: all
+  become: yes
+
+
+  tasks:
+  - name: Install pip
+    apt: name=python-pip state=present
+  - name: install docker-py
+    pip: name=docker-py
+  - name: Deploy application in docker container
+    docker_container:
+      name: custom-petclinc
+      image: demchenkoav/custom-petclinc
+      ports:
+        - 8080:8080
